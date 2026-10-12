@@ -1,0 +1,31 @@
+{
+  "name": "ai-agents-typescript-mini",
+  "version": "1.0.0",
+  "description": "Small TypeScript examples of LLM agent building blocks and workflow patterns, on OpenAI or a local Ollama model",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "intro:basic": "tsx src/1-introduction/1-basic.ts",
+    "intro:structured": "tsx src/1-introduction/2-structured.ts",
+    "intro:tools": "tsx src/1-introduction/3-tools.ts",
+    "intro:retrieval": "tsx src/1-introduction/4-retrieval.ts",
+    "workflow:chaining": "tsx src/2-workflow-patterns/1-prompt-chaining.ts",
+    "workflow:routing": "tsx src/2-workflow-patterns/2-routing.ts",
+    "workflow:parallel": "tsx src/2-workflow-patterns/3-parallelization.ts",
+    "workflow:orchestrator": "tsx src/2-workflow-patterns/4-orchestrator.ts"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.7",
+    "openai": "^7.32.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

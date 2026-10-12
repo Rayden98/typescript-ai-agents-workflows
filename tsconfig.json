@@ -1,0 +1,71 @@
+// tsconfig.json tells the TypeScript compiler (`tsc`) how to check this project.
+//
+// Important idea: TypeScript only CHECKS your code. Browsers and Node run
+// JavaScript, so the types are stripped away before the program runs. In this
+// project `tsx` does the stripping-and-running, and `tsc --noEmit` does the
+// checking.
+{
+  "compilerOptions": {
+    // --- What kind of JavaScript are we writing? ---------------------------
+
+    // Which JavaScript version our code may assume. ES2022 gives us modern
+    // features such as top-level `await`.
+    "target": "ES2022",
+
+    // Which built-in APIs TypeScript should know about (Array.prototype.at,
+    // Promise.all, ...). No "DOM" here because this code runs in Node, not in a
+    // browser.
+    "lib": ["ES2023"],
+
+    // "Preserve" + "Bundler" = keep our `import` statements exactly as written
+    // and let the runner (tsx) resolve them. This is what lets us write
+    // `import { logger } from "../lib/logger"` without a file extension.
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
+
+    // Load the type definitions for Node's built-ins (`process`, `fetch`,
+    // `node:fs`, ...). They come from the `@types/node` package.
+    "types": ["node"],
+
+    // --- How strict should the checker be? ---------------------------------
+
+    // Turns on the whole family of strict checks. The most important one is
+    // `strictNullChecks`: `null` and `undefined` are NOT allowed where a
+    // `string` is expected unless the type says so (`string | null`).
+    "strict": true,
+
+    // `myArray[0]` has type `T | undefined` instead of just `T`, because the
+    // array might be empty. The compiler makes you handle the empty case up
+    // front.
+    "noUncheckedIndexedAccess": true,
+
+    // Flag variables and parameters that are declared but never used.
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // A function with a return type must return on every code path.
+    "noImplicitReturns": true,
+
+    // In a `switch`, forgetting `break`/`return` and falling into the next
+    // `case` is an error.
+    "noFallthroughCasesInSwitch": true,
+
+    // --- Module hygiene ------------------------------------------------------
+
+    // Imports that are only used as types must be written `import type { X }`.
+    // That makes it obvious which imports disappear when types are stripped.
+    "verbatimModuleSyntax": true,
+
+    // --- Output --------------------------------------------------------------
+
+    // Don't write any .js files: `tsc` is only our type checker here.
+    "noEmit": true,
+
+    // Don't type-check the .d.ts files inside node_modules (faster, and errors
+    // in other people's packages aren't ours to fix).
+    "skipLibCheck": true
+  },
+
+  // Only check our own source files.
+  "include": ["src"]
+}
